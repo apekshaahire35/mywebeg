@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MovieMate Booking</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background:#f9f9f9; }
+    .container { max-width: 1000px; margin: 20px auto; padding: 10px; }
+    h1 { text-align: center; }
+    #seatContainer { margin-top: 20px; }
+    .category-block { margin-bottom: 20px; }
+    .category-header { display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 5px; }
+    .row { display: flex; align-items: center; margin-bottom: 5px; }
+    .row-label { width: 20px; margin-right: 10px; font-weight: bold; }
+    .seat { width: 30px; height: 30px; margin: 2px; line-height:30px; text-align:center; cursor:pointer; border-radius:4px; }
+    .seat.silver { background:#c0c0c0; }
+    .seat.gold { background:gold; }
+    .seat.platinum { background:#b9f2ff; }
+    .seat.booked { background:#555; cursor: not-allowed; color:#fff; }
+    .seat.selected { border: 2px solid red; }
+    .summary { margin-top: 20px; background:#fff; padding:10px; border-radius:5px; box-shadow:0 0 5px rgba(0,0,0,0.2); }
+    .summary div { margin-bottom:5px; }
+    #voucherPopup { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); justify-content:center; align-items:center; }
+    #voucherPopup .popup { background:#fff; padding:20px; border-radius:5px; text-align:center; }
+    #modalBackdrop { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); justify-content:center; align-items:center; }
+    .modal { background:#fff; padding:20px; border-radius:5px; width:300px; }
+    .item-card { display:flex; align-items:center; margin-bottom:5px; }
+    .item-card img { width:40px; height:40px; margin-right:10px; }
+    .qty-controls { margin-left:auto; display:flex; align-items:center; }
+    .qty-controls button { width:25px; height:25px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 id="movieTitle">—</h1>
+    <div id="movieMeta">—</div>
+
+    <div id="seatContainer"></div>
+
+    <div class="summary">
+      <div>Movie: <span id="pMovie">—</span></div>
+      <div>Theater: <span id="pTheater">—</span></div>
+      <div>Showtime: <span id="pShow">—</span></div>
+      <div>Seats: <span id="pSeats">—</span></div>
+      <div>Tickets: <span id="pTickets">—</span></div>
+      <div>Snacks: <span id="pSnacks">₹0</span></div>
+      <div id="discountLine" style="display:none;color:green;"></div>
+      <div>Total: ₹<span id="subTotal">0</span></div>
+    </div>
+
+    <div style="margin-top:20px;">
+      <input type="text" id="contactInput" placeholder="Enter your contact">
+      <button id="voucherCard">Apply Voucher</button>
+    </div>
+
+    <div style="margin-top:20px;">
+      <button id="addSnacksBtn">Add Snacks</button>
+      <button id="proceedBtn">Proceed to Payment</button>
+    </div>
+  </div>
+
+  <!-- Voucher Popup -->
+  <div id="voucherPopup">
+    <div class="popup">
+      <h2>Voucher Applied!</h2>
+      <p>10% off applied to your booking.</p>
+      <button id="voucherClose">Close</button>
+    </div>
+  </div>
+
+  <!-- Snack Modal -->
+  <div id="modalBackdrop">
+    <div class="modal">
+      <h3>Select Snacks</h3>
+      <div id="snacksList"></div>
+      <div id="drinksList"></div>
+      <div>Total: ₹<span id="modalSnackTotal">0</span></div>
+      <button id="interestedBtn">Add Snacks</button>
+      <button id="notInterestedBtn">No Thanks</button>
+      <button id="modalConfirm">Confirm</button>
+      <button id="modalCancel">Cancel</button>
+    </div>
+  </div>
+
+  <!-- Confetti Canvas -->
+  <canvas id="confettiCanvas" style="position:fixed; top:0; left:0; pointer-events:none;"></canvas>
+
+  <script src="your-movie-booking.js"></script>
+</body>
+</html>
